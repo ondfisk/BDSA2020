@@ -26,6 +26,7 @@ namespace Lecture01.Tests
         [InlineData("2,40", 42)]
         [InlineData("0,42", 42)]
         [InlineData("4,38", 42)]
+        [InlineData("2,4,36", 42)]
         public void Add_given_input_returns_expected(string input, int expected)
         {
             // Arrange
