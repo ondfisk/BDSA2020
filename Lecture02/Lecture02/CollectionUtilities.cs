@@ -3,11 +3,22 @@ using System.Collections.Generic;
 
 namespace Lecture02
 {
-    public class CollectionUtilities
+    public static class CollectionUtilities
     {
-        public static IList<int> GetEven(IList<int> list)
+        public static IEnumerable<int> GetEven(IEnumerable<int> list)
         {
-            throw new NotImplementedException();
+            foreach (var number in list)
+            {
+                if (number % 2 == 0)
+                {
+                    if (number == 42)
+                    {
+                        yield return number;
+                        yield break;
+                    }
+                    yield return number;
+                }
+            }
         }
 
         public static bool Find(int[] list, int number)
@@ -15,9 +26,18 @@ namespace Lecture02
             throw new NotImplementedException();
         }
 
-        public static IList<int> Unique(IList<int> numbers)
+        public static ISet<int> Unique(IEnumerable<int> numbers)
         {
-            throw new NotImplementedException();
+            // var set = new HashSet<int>();
+
+            // foreach (var number in numbers)
+            // {
+            //     set.Add(number);
+            // }
+
+            // return set;
+
+            return new HashSet<int>(numbers);
         }
 
         public static IList<int> Reverse(IList<int> numbers)
@@ -27,7 +47,7 @@ namespace Lecture02
 
         public static void Sort(List<Duck> ducks, IComparer<Duck> comparer = null)
         {
-            throw new NotImplementedException();
+            ducks.Sort(comparer);
         }
 
         public static IDictionary<int, Duck> ToDictionary(IEnumerable<Duck> ducks)

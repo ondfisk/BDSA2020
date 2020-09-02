@@ -3,13 +3,15 @@ using Xunit;
 
 namespace Lecture02.Tests
 {
+    using static TrafficLightColor;
+
     public class TrafficLightControllerTests
     {
         [Theory]
-        [InlineData("Green", true)]
-        [InlineData("Yellow", false)]
-        [InlineData("Red", false)]
-        public void MayIGo_given_color_returns_expected(string color, bool expected)
+        [InlineData(Green, true)]
+        [InlineData(Yellow, false)]
+        [InlineData(Red, false)]
+        public void MayIGo_given_color_returns_expected(TrafficLightColor color, bool expected)
         {
             var ctrl = new TrafficLightController();
 
@@ -23,9 +25,9 @@ namespace Lecture02.Tests
         {
             var ctrl = new TrafficLightController();
 
-            var actual = Assert.Throws<ArgumentException>(() => ctrl.MayIGo("Blue"));
+            var actual = Assert.Throws<ArgumentException>(() => ctrl.MayIGo((TrafficLightColor)42));
 
-            Assert.Equal("Invalid color", actual.Message);
+            Assert.Equal("Invalid color (Parameter 'color')", actual.Message);
         }
     }
 }

@@ -5,23 +5,17 @@ namespace Lecture02
 {
     public class TrafficLightController : ITrafficLightController
     {
-        public bool MayIGo(string color)
+        public bool MayIGo(TrafficLightColor color)
         {
-            if (color == "Green")
+            switch (color)
             {
-                return true;
-            }
-            else if (color == "Yellow")
-            {
-                return false;
-            }
-            else if (color == "Red")
-            {
-                return false;
-            }
-            else
-            {
-                throw new ArgumentException("Invalid color");
+                case Green:
+                    return true;
+                case Yellow:
+                case Red:
+                    return false;
+                default:
+                    throw new ArgumentException("Invalid color", nameof(color));
             }
         }
     }

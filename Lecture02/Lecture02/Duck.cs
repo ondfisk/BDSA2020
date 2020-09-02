@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Lecture02
 {
-    public class Duck : IEquatable<Duck>
+    public class Duck : IEquatable<Duck>, IComparable<Duck>
     {
         public int Id { get; set; }
 
@@ -48,6 +48,20 @@ namespace Lecture02
             return x.Id != y.Id;
         }
 
+        public int CompareTo(Duck other)
+        {
+            if (Id < other.Id)
+            {
+                return -1;
+            }
+            if (Id > other.Id)
+            {
+                return 1;
+            }
+
+            return 0;
+        }
+
         /// <summary>
         /// GetHashCode should always be overridden when Equals is overridden.
         /// https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2218-override-gethashcode-on-overriding-equals
@@ -60,18 +74,18 @@ namespace Lecture02
 
         public override string ToString()
         {
-            return $"{Name}, {Age}";
+            return $"{Id}: {Name}, {Age}";
         }
 
         public static ICollection<Duck> Ducks = new[] {
-            new Duck { Id = 1, Name = "Donald Duck", Age = 32 },
-            new Duck { Id = 2, Name = "Daisy Duck", Age = 30 },
             new Duck { Id = 3, Name = "Huey Duck", Age = 10 },
+            new Duck { Id = 8, Name = "Magica De Spell", Age = 302 },
             new Duck { Id = 4, Name = "Dewey Duck", Age = 10 },
             new Duck { Id = 5, Name = "Louie  Duck", Age = 10 },
             new Duck { Id = 6, Name = "Scrooge McDuck", Age = 60 },
             new Duck { Id = 7, Name = "Flintheart Glomgold", Age = 66 },
-            new Duck { Id = 8, Name = "Magica De Spell", Age = 302 },
+            new Duck { Id = 1, Name = "Donald Duck", Age = 32 },
+            new Duck { Id = 2, Name = "Daisy Duck", Age = 30 },
             new Duck { Id = 9, Name = "John D. Rockerduck", Age = 55 }
         };
     }

@@ -3,18 +3,35 @@ using System.Text.RegularExpressions;
 
 namespace Lecture02
 {
-    public static class PostalCodeValidator
+    public class PostalCodeValidator
     {
-        public static bool IsValid(string postalCode)
+        public bool IsValid(string postalCode)
         {
-            throw new NotImplementedException();
+            var pattern = @"^\d{4}$";
+
+            var valid = Regex.IsMatch(postalCode, pattern);
+
+            return valid;
         }
 
-        public static bool TryParse(string postalCodeAndLocality,
+        public bool TryParse(string postalCodeAndLocality,
             out string postalCode,
             out string locality)
         {
-            throw new NotImplementedException();
+            var pattern = @"(?<postal_code>^\d{4}) (?<locality>.+$)";
+
+            var match = Regex.Match(postalCodeAndLocality, pattern);
+
+            postalCode = null;
+            locality = null;
+
+            if (match.Success)
+            {
+                postalCode = match.Groups["postal_code"].Value;
+                locality = match.Groups["locality"].Value;
+            }
+
+            return match.Success;
         }
     }
 }
