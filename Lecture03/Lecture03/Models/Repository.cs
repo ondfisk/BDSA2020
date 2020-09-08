@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using static Lecture03.Models.Gender;
 
@@ -7,6 +8,7 @@ namespace Lecture03.Models
     public class Repository
     {
         public ICollection<Superhero> Superheroes { get; }
+        public ICollection<Superhero2> Superheroes2 { get; }
         public ICollection<Group> Groups { get; }
         public ICollection<City> Cities { get; }
 
@@ -54,6 +56,17 @@ namespace Lecture03.Models
                 new Superhero { Id = 7, Name = "Selina Kyle", AlterEgo = "Catwoman", Occupation = "Thief", Gender = Female, FirstAppearance = 1940, Powers = new[] { "exceptional martial artist", "gymnastic ability", "combat skill" }, GroupAffiliations = getGroups(), CityId = 2 },
                 new Superhero { Id = 8, Name = "Kate Kane", AlterEgo = "Batwoman", Occupation = "Thief", Gender = Female, FirstAppearance = 1956, Powers = new[] { "exceptional martial artist", "combat strategy", "combat skill", "brilliant deductive skills", "intelligence", "advanced technology" }, GroupAffiliations = getGroups(), CityId = 2 },
                 new Superhero { Id = 9, Name = "Kara Zor-El", AlterEgo = "Supergirl", Occupation = "Actress", Gender = Female, FirstAppearance = 1959, Powers = new[] { "super strength", "flight", "invulnerability", "super speed", "heat vision", "freeze breath", "x-ray vision", "superhuman hearing", "healing factor" }, GroupAffiliations = getGroups(), CityId = 5 }
+            };
+
+            Superheroes2 = new HashSet<Superhero2>
+            {
+                new Superhero2 {GivenName = "Clark", Surname = "Kent", AlterEgo = "Superman", FirstAppearance = DateTime.Parse("1938-04-18"), City = "Metropolis" },
+                new Superhero2 {GivenName = "Bruce", Surname = "Wayne", AlterEgo = "Batman", FirstAppearance = DateTime.Parse("1939-05-01"), City = "Gotham City" },
+                new Superhero2 {GivenName = "Bruce", Surname = "Banner", AlterEgo = "Hulk", FirstAppearance = DateTime.Parse("1962-05-01"), City = "Dayton" },
+                new Superhero2 {GivenName = "Steve", Surname = "Rogers", AlterEgo = "Captain America", FirstAppearance = DateTime.Parse("1941-03-01"), City = "New York City" },
+                new Superhero2 {GivenName = "Tony", Surname = "Stark", AlterEgo = "Iron Man", FirstAppearance = DateTime.Parse("1963-03-01"), City = "Long Island" },
+                new Superhero2 {GivenName = "James", Surname = "Howlett", AlterEgo = "Wolverine", FirstAppearance = DateTime.Parse("1974-10-01"), City = "Cold Lake" },
+                new Superhero2 {GivenName = "Selina", Surname = "Kyle", AlterEgo = "Catwoman", FirstAppearance = DateTime.Parse("1940-04-01"), City = "Gotham City" }
             };
         }
     }
