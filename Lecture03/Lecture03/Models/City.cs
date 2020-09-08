@@ -11,11 +11,6 @@
             Name = name;
         }
 
-        public City() {}
-
-        public override string ToString()
-        {
-            return Name;
-        }
+        public City() { }
     }
 }
