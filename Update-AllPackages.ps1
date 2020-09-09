@@ -8,6 +8,6 @@ Get-ChildItem -Recurse | Where-Object Extension -Like "*proj" | ForEach-Object {
     ForEach-Object {
         $package = $PSItem.Matches.Groups[1].Value
         Write-Host -Object "Updating $package in $projectName..." -ForegroundColor Green
-        Invoke-Expression -Command "dotnet add $project package $package"
+        Invoke-Expression -Command "dotnet add '$project' package $package"
     }
 }
