@@ -1,5 +1,31 @@
 # Notes
 
+## Run SQL Server container
+
+```PowerShell
+$password = New-Guid
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+```
+
+## Enable User Secrets
+
+Example connection string: `Server=.;Database=...;User Id=...;Password=...;`
+
+```powershell
+$connectionString = "Server=.;Database=Futurama;User Id=sa;Password=$password"
+
+dotnet user-secrets init
+dotnet user-secrets set "ConnectionStrings:ConnectionString" "$connectionString"
+dotnet add package Microsoft.Extensions.Configuration.UserSecrets
+```
+
+## Reverse Engineer Database
+
+```powershell
+dotnet ef dbcontext scaffold "..." Microsoft.EntityFrameworkCore.SqlServer
+```
+
 ## Install the SQL client package
 
 ```bash
@@ -9,14 +35,25 @@ dotnet add package System.Data.SqlClient
 ## Install the Entity Framework global tool
 
 ```bash
-dotnet tool install --global dotnet-ef --version 3.0.0-*
+dotnet tool install --global dotnet-ef --version 5.0.0-preview.8.20407.4
 ```
+
+## Create a new class library
+
+```bash
+dotnet new classlib -o Lecture04.Entities
+```
+
+Change target framework to `netstandard2.1`.
 
 ## Add package to project
 
 ```bash
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
+# Startup project
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+# Entities project
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 ## Add migration

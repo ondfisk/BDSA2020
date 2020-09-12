@@ -4,33 +4,30 @@ namespace Lecture04
 {
     public class RawSqlDemo
     {
-        public static void Run()
+        public static void Run(string connectionString)
         {
-            var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=Futurama;Trusted_Connection=True;MultipleActiveResultSets=true";
+            using var raw = new RawSqlCharacterRepository(connectionString);
 
-            using (var raw = new RawSql(connectionString))
-            {
-                Read(raw);
+            Read(raw);
 
-                PrintHeader("READ('Turanga Leela')");
+            PrintHeader("READ('Turanga Leela')");
 
-                var leela = raw.Read("Turanga Leela");
-                Console.WriteLine(leela);
+            var leela = raw.Read("Turanga Leela");
+            Console.WriteLine(leela);
 
-                PrintHeader("DELETE(2)");
+            PrintHeader("DELETE(2)");
 
-                raw.Delete(2);
+            raw.Delete(2);
 
-                Read(raw);
+            Read(raw);
 
-                PrintHeader("UPDATE - move fry to Mars");
+            PrintHeader("UPDATE - move fry to Mars");
 
-                var fry = raw.Read("Philip J. Fry");
-                fry.Planet = "Mars";
-                raw.Update(fry);
+            var fry = raw.Read("Philip J. Fry");
+            fry.Planet = "Mars";
+            raw.Update(fry);
 
-                Read(raw);
-            }
+            Read(raw);
         }
 
         static void PrintHeader(string header)
@@ -38,9 +35,10 @@ namespace Lecture04
             Console.Write(new string('=', Console.WindowWidth));
             Console.WriteLine(header);
             Console.Write(new string('=', Console.WindowWidth));
+            Console.ReadKey();
         }
 
-        static void Read(RawSql raw)
+        static void Read(RawSqlCharacterRepository raw)
         {
             PrintHeader("READ");
 

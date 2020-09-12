@@ -1,4 +1,4 @@
-﻿namespace Lecture04
+﻿namespace Lecture04.Entities
 {
     public enum Gender
     {
