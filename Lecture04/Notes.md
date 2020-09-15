@@ -13,11 +13,16 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$password" -p 1433:1433 -d mcr.mic
 Example connection string: `Server=.;Database=...;User Id=...;Password=...;`
 
 ```powershell
-$connectionString = "Server=.;Database=Futurama;User Id=sa;Password=$password"
 
 dotnet user-secrets init
 dotnet user-secrets set "ConnectionStrings:ConnectionString" "$connectionString"
 dotnet add package Microsoft.Extensions.Configuration.UserSecrets
+```
+
+## Install the SQL client package
+
+```bash
+dotnet add package System.Data.SqlClient
 ```
 
 ## SQL Injection
@@ -47,22 +52,19 @@ static void Main(string[] args)
 }
 ```
 
-## Reverse Engineer Database
-
-```powershell
-dotnet ef dbcontext scaffold "..." Microsoft.EntityFrameworkCore.SqlServer
-```
-
-## Install the SQL client package
-
-```bash
-dotnet add package System.Data.SqlClient
-```
-
 ## Install the Entity Framework global tool
 
 ```bash
 dotnet tool install --global dotnet-ef
+```
+
+## Reverse Engineer Database
+
+```powershell
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+dotnet ef dbcontext scaffold "..." Microsoft.EntityFrameworkCore.SqlServer --data-annotations
 ```
 
 ## Create a new class library
@@ -75,7 +77,8 @@ Change target framework to `netstandard2.1`.
 
 ## Add package to project
 
-```bash
+```bash$connectionString = "Server=.;Database=Futurama;User Id=sa;Password=$password"
+
 # Startup project
 dotnet add package Microsoft.EntityFrameworkCore.Design
 

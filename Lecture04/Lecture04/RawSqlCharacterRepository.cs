@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Lecture04
 {
@@ -12,6 +13,19 @@ namespace Lecture04
         public RawSqlCharacterRepository(string connectionString)
         {
             _connection = new SqlConnection(connectionString);
+        }
+
+        public void Reset()
+        {
+            var cmdText = File.ReadAllText("FuturamaReset.sql");
+
+            using var command = new SqlCommand(cmdText, _connection);
+
+            OpenConnection();
+
+            command.ExecuteNonQuery();
+
+            CloseConnection();
         }
 
         public int Create(CharacterDTO character)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Lecture04
 {
@@ -7,6 +8,8 @@ namespace Lecture04
         public static void Run(string connectionString)
         {
             using var raw = new RawSqlCharacterRepository(connectionString);
+
+            raw.Reset();
 
             Read(raw);
 
@@ -35,7 +38,8 @@ namespace Lecture04
             Console.Write(new string('=', Console.WindowWidth));
             Console.WriteLine(header);
             Console.Write(new string('=', Console.WindowWidth));
-            Console.ReadKey();
+
+            Thread.Sleep(TimeSpan.FromSeconds(1.5));
         }
 
         static void Read(RawSqlCharacterRepository raw)
