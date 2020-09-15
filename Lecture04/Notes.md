@@ -20,6 +20,33 @@ dotnet user-secrets set "ConnectionStrings:ConnectionString" "$connectionString"
 dotnet add package Microsoft.Extensions.Configuration.UserSecrets
 ```
 
+## SQL Injection
+
+```csharp
+static void Main(string[] args)
+{
+    Console.Write("Enter search string: ");
+    var searchString = Console.ReadLine();
+
+    var cmdText = "SELECT Name FROM Characters WHERE Name LIKE '%' + @SearchString + '%'";
+
+    using (var connection = new SqlConnection(connectionString))
+    using (var command = new SqlCommand(cmdText, connection))
+    {
+        command.Parameters.AddWithValue("@SearchString", searchString);
+
+        connection.Open();
+
+        var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            Console.WriteLine(reader["Name"]);
+        }
+    }
+}
+```
+
 ## Reverse Engineer Database
 
 ```powershell
@@ -35,7 +62,7 @@ dotnet add package System.Data.SqlClient
 ## Install the Entity Framework global tool
 
 ```bash
-dotnet tool install --global dotnet-ef --version 5.0.0-preview.8.20407.4
+dotnet tool install --global dotnet-ef
 ```
 
 ## Create a new class library

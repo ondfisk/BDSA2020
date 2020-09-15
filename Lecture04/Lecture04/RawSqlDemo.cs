@@ -21,7 +21,7 @@ namespace Lecture04
 
             Read(raw);
 
-            PrintHeader("UPDATE - move fry to Mars");
+            PrintHeader("UPDATE - move Fry to Mars");
 
             var fry = raw.Read("Philip J. Fry");
             fry.Planet = "Mars";
