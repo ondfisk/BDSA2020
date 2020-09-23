@@ -77,7 +77,9 @@ Change target framework to `netstandard2.1`.
 
 ## Add package to project
 
-```bash$connectionString = "Server=.;Database=Futurama;User Id=sa;Password=$password"
+```bash
+$connectionString = "Server=.;Database=Futurama;User Id=sa;Password=$password"
+```
 
 # Startup project
 dotnet add package Microsoft.EntityFrameworkCore.Design
