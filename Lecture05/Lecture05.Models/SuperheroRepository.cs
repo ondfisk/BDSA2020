@@ -15,9 +15,33 @@ namespace Lecture05.Models
             _context = context;
         }
 
+        private int GetOrCreateCity(string name)
+        {
+            var entity = _context.Cities.FirstOrDefault(c => c.Name == name) ?? new City { Name = name };
+
+            if (entity.Id == 0)
+            {
+                _context.Cities.Add(entity);
+                _context.SaveChanges();
+            }
+
+            return entity.Id;
+        }
+
         public int Create(SuperheroCreateDTO superhero)
         {
-            throw new NotImplementedException();
+            var entity = new Superhero
+            {
+                Name = superhero.Name,
+                AlterEgo = superhero.AlterEgo,
+                CityId = GetOrCreateCity(superhero.CityName),
+                Gender = superhero.Gender
+            };
+
+            _context.Superheroes.Add(entity);
+            _context.SaveChanges();
+
+            return entity.Id;
         }
 
         public SuperheroDetailsDTO Read(int superheroId)
@@ -39,11 +63,16 @@ namespace Lecture05.Models
         {
             var entity = _context.Superheroes.Find(superheroId);
 
+            if (entity == null)
+            {
+                return NotFound;
+            }
+
             _context.Superheroes.Remove(entity);
 
             _context.SaveChanges();
 
-            return Response.Deleted;
+            return Deleted;
         }
     }
 }
