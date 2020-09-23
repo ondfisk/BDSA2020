@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Lecture05.Entities;
+using Lecture06.Entities;
 
-namespace Lecture05.Models
+namespace Lecture06.Models
 {
     public class SuperheroCreateDTO
     {
@@ -24,6 +24,6 @@ namespace Lecture05.Models
 
         public int? FirstAppearance { get; set; }
 
-        public ISet<string> Powers { get; set; }
+        public ISet<string> Powers { get; set; } = new HashSet<string>();
     }
 }
