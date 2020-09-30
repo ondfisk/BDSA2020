@@ -5,10 +5,10 @@ namespace Lecture06.Models
 {
     public interface ISuperheroRepository
     {
-        int Create(SuperheroCreateDTO superhero);
-        SuperheroDetailsDTO Read(int superheroId);
-        ICollection<SuperheroListDTO> Read();
-        Response Update(SuperheroUpdateDTO superhero);
-        Response Delete(int superheroId);
+        Task<int> Create(SuperheroCreateDTO superhero);
+        Task<SuperheroDetailsDTO> Read(int superheroId);
+        Task<ICollection<SuperheroListDTO>> Read();
+        Task<Response> Update(SuperheroUpdateDTO superhero);
+        Task<Response> Delete(int superheroId);
     }
 }

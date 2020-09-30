@@ -18,12 +18,18 @@ namespace Lecture06
 
         public static void ForEach()
         {
+            var sw = Stopwatch.StartNew();
+
             var numbers = Enumerable.Range(0, 1000);
+
+            // var options = new ParallelOptions { MaxDegreeOfParallelism = 2 };
 
             Parallel.ForEach(numbers, number =>
             {
                 Console.WriteLine(number);
             });
+
+            Console.WriteLine($"That took: {sw.ElapsedMilliseconds} milis");
         }
 
         public static void Invoke()

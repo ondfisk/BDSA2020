@@ -7,6 +7,7 @@ using Xunit;
 using Lecture06.Entities;
 using static Lecture06.Entities.Gender;
 using static Lecture06.Models.Response;
+using System.Threading.Tasks;
 
 namespace Lecture06.Models.Tests
 {
@@ -30,7 +31,7 @@ namespace Lecture06.Models.Tests
         }
 
         [Fact]
-        public void Given_superhero_with_existing_city_When_Create_it_Creates_superhero_and_returns_id()
+        public async Task Given_superhero_with_existing_city_When_Create_it_Creates_superhero_and_returns_id()
         {
             var superhero = new SuperheroCreateDTO
             {
@@ -48,7 +49,7 @@ namespace Lecture06.Models.Tests
                 }
             };
 
-            var id = _repository.Create(superhero);
+            var id = await _repository.Create(superhero);
 
             Assert.Equal(3, id);
 
@@ -76,7 +77,7 @@ namespace Lecture06.Models.Tests
         }
 
         [Fact]
-        public void Given_superhero_with_new_city_When_Create_it_Creates_superhero_and_returns_id()
+        public async Task Given_superhero_with_new_city_When_Create_it_Creates_superhero_and_returns_id()
         {
             var superhero = new SuperheroCreateDTO
             {
@@ -98,13 +99,13 @@ namespace Lecture06.Models.Tests
                 }
             };
 
-            var id = _repository.Create(superhero);
+            var id = await _repository.Create(superhero);
 
-            var entity = _context.Superheroes
+            var entity = await _context.Superheroes
                 .Include(h => h.City)
                 .Include(h => h.Powers)
                 .ThenInclude(h => h.Power)
-                .FirstOrDefault(h => h.Id == id);
+                .FirstOrDefaultAsync(h => h.Id == id);
 
             Assert.Equal("Diana", entity.Name);
             Assert.Equal("Wonder Woman", entity.AlterEgo);
@@ -128,9 +129,9 @@ namespace Lecture06.Models.Tests
         }
 
         [Fact]
-        public void Given_existing_id_When_Read_it_returns_superhero()
+        public async Task Given_existing_id_When_Read_it_returns_superhero()
         {
-            var superhero = _repository.Read(2);
+            var superhero = await _repository.Read(2);
 
             Assert.Equal("Bruce Wayne", superhero.Name);
             Assert.Equal("Batman", superhero.AlterEgo);
@@ -152,17 +153,17 @@ namespace Lecture06.Models.Tests
         }
 
         [Fact]
-        public void Given_non_existing_id_When_Read_it_returns_null()
+        public async Task Given_non_existing_id_When_Read_it_returns_null()
         {
-            var result = _repository.Read(42);
+            var result = await _repository.Read(42);
 
             Assert.Null(result);
         }
 
         [Fact]
-        public void Read_returns_superheroes()
+        public async Task Read_returns_superheroes()
         {
-            var result = _repository.Read();
+            var result = await _repository.Read();
 
             Assert.Equal(2, result.Count);
 
@@ -179,7 +180,7 @@ namespace Lecture06.Models.Tests
         }
 
         [Fact]
-        public void Update_turns_Batman_into_Catwoman()
+        public async Task Update_turns_Batman_into_Catwoman()
         {
             var superhero = new SuperheroUpdateDTO
             {
@@ -198,15 +199,15 @@ namespace Lecture06.Models.Tests
                 }
             };
 
-            var result = _repository.Update(superhero);
+            var result = await _repository.Update(superhero);
 
             Assert.Equal(Updated, result);
 
-            var entity = _context.Superheroes
+            var entity = await _context.Superheroes
                 .Include(h => h.City)
                 .Include(h => h.Powers)
                 .ThenInclude(h => h.Power)
-                .FirstOrDefault(h => h.Id == 2);
+                .FirstOrDefaultAsync(h => h.Id == 2);
 
             Assert.Equal("Selina Kyle", entity.Name);
             Assert.Equal("Catwoman", entity.AlterEgo);
@@ -226,7 +227,7 @@ namespace Lecture06.Models.Tests
         }
 
         [Fact]
-        public void Update_turns_Superman_into_Wonder_Woman()
+        public async Task Update_turns_Superman_into_Wonder_Woman()
         {
             var superhero = new SuperheroUpdateDTO
             {
@@ -249,15 +250,15 @@ namespace Lecture06.Models.Tests
                 }
             };
 
-            var result = _repository.Update(superhero);
+            var result = await _repository.Update(superhero);
 
             Assert.Equal(Updated, result);
 
-            var entity = _context.Superheroes
+            var entity = await _context.Superheroes
                 .Include(h => h.City)
                 .Include(h => h.Powers)
                 .ThenInclude(h => h.Power)
-                .FirstOrDefault(h => h.Id == 1);
+                .FirstOrDefaultAsync(h => h.Id == 1);
 
             Assert.Equal("Diana", entity.Name);
             Assert.Equal("Wonder Woman", entity.AlterEgo);
@@ -282,28 +283,28 @@ namespace Lecture06.Models.Tests
 
 
         [Fact]
-        public void Given_non_existing_id_When_Update_it_returns_not_found()
+        public async Task Given_non_existing_id_When_Update_it_returns_not_found()
         {
             var superhero = new SuperheroUpdateDTO { Id = 42 };
 
-            var result = _repository.Update(superhero);
+            var result = await _repository.Update(superhero);
 
             Assert.Equal(NotFound, result);
         }
 
         [Fact]
-        public void Given_existing_id_When_Delete_it_removes_superhero_and_returns_Deleted()
+        public async Task Given_existing_id_When_Delete_it_removes_superhero_and_returns_Deleted()
         {
-            var result = _repository.Delete(1);
+            var result = await _repository.Delete(1);
 
             Assert.Null(_context.Superheroes.Find(1));
             Assert.Equal(Deleted, result);
         }
 
         [Fact]
-        public void Given_non_existing_id_When_Delete_it_returns_not_found()
+        public async Task Given_non_existing_id_When_Delete_it_returns_not_found()
         {
-            var result = _repository.Delete(42);
+            var result = await _repository.Delete(42);
 
             Assert.Equal(NotFound, result);
         }

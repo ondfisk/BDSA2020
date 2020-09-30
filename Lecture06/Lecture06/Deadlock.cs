@@ -133,12 +133,13 @@ namespace Lecture06
             var bank = new Bank();
             var a = new Account("a", 100.0m);
             var b = new Account("b", 500.0m);
+            var c = new Account("c", 250.0m);
 
             var t1 = new Thread(() =>
             {
                 var accounts = new[] { a, b }.OrderBy(c => c.Name).ToArray();
 
-                Console.WriteLine($"t1 acquiring lock on account {accounts[1].Name}");
+                Console.WriteLine($"t1 acquiring lock on account {accounts[0].Name}");
                 lock (accounts[0])
                 {
                     Thread.Sleep(500);
@@ -159,7 +160,7 @@ namespace Lecture06
             {
                 var accounts = new[] { b, a }.OrderBy(c => c.Name).ToArray();
 
-                Console.WriteLine($"t2 acquiring lock on account {b.Name}");
+                Console.WriteLine($"t2 acquiring lock on account {accounts[0]}");
                 lock (accounts[0])
                 {
                     Thread.Sleep(500);
@@ -176,11 +177,35 @@ namespace Lecture06
                 }
                 Console.WriteLine($"t2 lock released on account {accounts[0].Name}");
             });
+            var t3 = new Thread(() =>
+            {
+                var accounts = new[] { b, c }.OrderBy(c => c.Name).ToArray();
+
+                Console.WriteLine($"t3 acquiring lock on account {accounts[0].Name}");
+                lock (accounts[0])
+                {
+                    Thread.Sleep(500);
+                    Console.WriteLine($"t3 lock acquired on account {accounts[1].Name}");
+                    Console.WriteLine($"t3 acquiring lock on account {accounts[1].Name}");
+                    lock (accounts[1])
+                    {
+                        Thread.Sleep(500);
+                        Console.WriteLine($"t3 lock acquired on account {accounts[1].Name}");
+                        bank.Transfer(b, c, 100.0m);
+                        Console.WriteLine("transfered 100.00 from b to c");
+                    }
+                    Console.WriteLine($"t3 lock released on account {accounts[1].Name}");
+                }
+                Console.WriteLine($"t3 lock released on account {accounts[0].Name}");
+            });
+
 
             t1.Start();
             t2.Start();
+            t3.Start();
             t1.Join();
             t2.Join();
+            t3.Join();
 
             Console.WriteLine($"Program terminated");
         }

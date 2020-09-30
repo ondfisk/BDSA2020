@@ -104,6 +104,7 @@ namespace Lecture06
             t1.IsBackground = true;
 
             t1.Start();
+            t1.Join();
             Console.WriteLine("Thread t has ended");
             Console.WriteLine("MAIN!!!");
             Console.WriteLine("Done waiting...");

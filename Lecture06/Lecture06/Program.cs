@@ -34,7 +34,7 @@ namespace Lecture06
 
             // ParallelLinq.Run();
 
-            ConcurrentCollections.Race();
+            // ConcurrentCollections.Race();
         }
     }
 }

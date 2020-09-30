@@ -11,6 +11,6 @@ namespace Lecture06.Entities
         DbSet<City> Cities { get; }
         DbSet<Power> Powers { get; }
         DbSet<SuperheroPower> SuperheroPowers { get; }
-        int SaveChanges();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

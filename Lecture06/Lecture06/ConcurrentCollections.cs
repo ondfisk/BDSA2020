@@ -8,7 +8,7 @@ namespace Lecture06
 {
     public class ConcurrentCollections
     {
-        static void Race(Queue<string> queue, string name, int count)
+        static void Race(ConcurrentQueue<string> queue, string name, int count)
         {
             for (var i = 0; i < count; i++)
             {
@@ -18,7 +18,7 @@ namespace Lecture06
 
         public static void Race()
         {
-            var queue = new Queue<string>();
+            var queue = new ConcurrentQueue<string>();
 
             var t1 = Task.Run(() => Race(queue, "One", 50));
             var t2 = Task.Run(() => Race(queue, "Two", 50));
