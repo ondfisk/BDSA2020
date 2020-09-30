@@ -83,31 +83,31 @@ namespace Lecture04
             //                       Powers = h.Powers.Select(p => p.Power.Name)
             //                   };
 
-            // foreach (var hero in superheroes)
+            // foreach (var superhero in superheroes)
             // {
-            //     Console.WriteLine(hero.Name);
-            //     hero.Powers.Print();
+            //     Console.WriteLine(superhero.Name);
+            //     superhero.Powers.Print();
             // }
 
             // context.Database.ExecuteSqlRaw("UPDATE Powers SET Name = 'Updated(' + Name + ')'");
 
-            var heroes = context.Superheroes; //.Include(c => c.City);
+            var superheroes = context.Superheroes; //.Include(c => c.City);
 
-            foreach (var hero in heroes)
+            foreach (var superhero in superheroes)
             {
-                Console.WriteLine(hero.City.Name);
+                Console.WriteLine(superhero.City.Name);
             }
 
-            // var heroes = from h in context.Superheroes
-            //              orderby h.AlterEgo
-            //              select new
-            //              {
-            //                  h.AlterEgo,
-            //                  h.Name,
-            //                  City = h.City.Name
-            //              };
+            // var superheroes = from h in context.Superheroes
+            //                   orderby h.AlterEgo
+            //                   select new
+            //                   {
+            //                       h.AlterEgo,
+            //                       h.Name,
+            //                       City = h.City.Name
+            //                   };
 
-            // heroes.Print();
+            // superheroes.Print();
         }
     }
 }

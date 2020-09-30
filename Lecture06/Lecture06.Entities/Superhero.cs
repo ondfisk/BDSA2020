@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Lecture05.Entities;
 
-namespace Lecture05.Models
+namespace Lecture06.Entities
 {
-    public class SuperheroCreateDTO
+    public class Superhero
     {
+        public int Id { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -17,13 +18,14 @@ namespace Lecture05.Models
         [StringLength(50)]
         public string Occupation { get; set; }
 
-        [StringLength(50)]
-        public string CityName { get; set; }
+        public int? CityId { get; set; }
+
+        public City City { get; set; }
 
         public Gender Gender { get; set; }
 
         public int? FirstAppearance { get; set; }
 
-        public ISet<string> Powers { get; set; }
+        public ICollection<SuperheroPower> Powers { get; set; }
     }
 }
