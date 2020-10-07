@@ -56,17 +56,15 @@ namespace Lecture07.Models
             return await heroes.FirstOrDefaultAsync();
         }
 
-        public async Task<ICollection<SuperheroListDTO>> Read()
+        public IQueryable<SuperheroListDTO> Read()
         {
-            var heroes = from h in _context.Superheroes
-                         select new SuperheroListDTO
-                         {
-                             Id = h.Id,
-                             Name = h.Name,
-                             AlterEgo = h.AlterEgo,
-                         };
-
-            return await heroes.ToListAsync();
+            return from h in _context.Superheroes
+                   select new SuperheroListDTO
+                   {
+                       Id = h.Id,
+                       Name = h.Name,
+                       AlterEgo = h.AlterEgo,
+                   };
         }
 
         public async Task<Response> Update(SuperheroUpdateDTO superhero)

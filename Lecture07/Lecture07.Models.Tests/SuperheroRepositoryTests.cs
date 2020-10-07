@@ -163,7 +163,7 @@ namespace Lecture07.Models.Tests
         [Fact]
         public async Task Read_returns_superheroes()
         {
-            var result = await _repository.Read();
+            var result = await _repository.Read().ToListAsync();
 
             Assert.Equal(2, result.Count);
 

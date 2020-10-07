@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Lecture07.Models
@@ -7,7 +7,7 @@ namespace Lecture07.Models
     {
         Task<int> Create(SuperheroCreateDTO superhero);
         Task<SuperheroDetailsDTO> Read(int superheroId);
-        Task<ICollection<SuperheroListDTO>> Read();
+        IQueryable<SuperheroListDTO> Read();
         Task<Response> Update(SuperheroUpdateDTO superhero);
         Task<Response> Delete(int superheroId);
     }
