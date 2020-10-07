@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Lecture07.Entities;
 
 namespace Lecture07.Models

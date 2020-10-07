@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Lecture07.Models
@@ -8,7 +9,7 @@ namespace Lecture07.Models
         Task<int> Create(SuperheroCreateDTO superhero);
         Task<SuperheroDetailsDTO> Read(int superheroId);
         IQueryable<SuperheroListDTO> Read();
-        Task<Response> Update(SuperheroUpdateDTO superhero);
-        Task<Response> Delete(int superheroId);
+        Task<HttpStatusCode> Update(SuperheroUpdateDTO superhero);
+        Task<HttpStatusCode> Delete(int superheroId);
     }
 }

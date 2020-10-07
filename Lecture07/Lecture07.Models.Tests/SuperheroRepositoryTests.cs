@@ -1,13 +1,13 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Lecture07.Entities;
 using static Lecture07.Entities.Gender;
-using static Lecture07.Models.Response;
-using System.Threading.Tasks;
+using static System.Net.HttpStatusCode;
 
 namespace Lecture07.Models.Tests
 {
@@ -201,7 +201,7 @@ namespace Lecture07.Models.Tests
 
             var result = await _repository.Update(superhero);
 
-            Assert.Equal(Updated, result);
+            Assert.Equal(NoContent, result);
 
             var entity = await _context.Superheroes
                 .Include(h => h.City)
@@ -252,7 +252,7 @@ namespace Lecture07.Models.Tests
 
             var result = await _repository.Update(superhero);
 
-            Assert.Equal(Updated, result);
+            Assert.Equal(NoContent, result);
 
             var entity = await _context.Superheroes
                 .Include(h => h.City)
@@ -298,7 +298,7 @@ namespace Lecture07.Models.Tests
             var result = await _repository.Delete(1);
 
             Assert.Null(_context.Superheroes.Find(1));
-            Assert.Equal(Deleted, result);
+            Assert.Equal(NoContent, result);
         }
 
         [Fact]

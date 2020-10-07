@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Lecture07.Entities;
 using Microsoft.EntityFrameworkCore;
-using static Lecture07.Models.Response;
+using static System.Net.HttpStatusCode;
 
 namespace Lecture07.Models
 {
@@ -67,7 +68,7 @@ namespace Lecture07.Models
                    };
         }
 
-        public async Task<Response> Update(SuperheroUpdateDTO superhero)
+        public async Task<HttpStatusCode> Update(SuperheroUpdateDTO superhero)
         {
             var entity = await _context.Superheroes.FindAsync(superhero.Id);
 
@@ -86,10 +87,10 @@ namespace Lecture07.Models
 
             await _context.SaveChangesAsync();
 
-            return Updated;
+            return NoContent;
         }
 
-        public async Task<Response> Delete(int superheroId)
+        public async Task<HttpStatusCode> Delete(int superheroId)
         {
             var entity = await _context.Superheroes.FindAsync(superheroId);
 
@@ -102,7 +103,7 @@ namespace Lecture07.Models
 
             await _context.SaveChangesAsync();
 
-            return Deleted;
+            return NoContent;
         }
 
         private async Task<City> GetCity(string name) => await _context.Cities.FirstOrDefaultAsync(c => c.Name == name) ?? new City { Name = name };
