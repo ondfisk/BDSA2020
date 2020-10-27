@@ -11,6 +11,11 @@ namespace Lecture08.Models.FactoryMethod
             _factory = factory;
         }
 
+        public Game()
+            : this(new WeaponFactory())
+        {
+        }
+
         public void Run()
         {
             Console.Clear();

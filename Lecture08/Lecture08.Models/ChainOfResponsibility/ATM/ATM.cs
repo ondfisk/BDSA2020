@@ -13,12 +13,10 @@ namespace Lecture08.Models.ChainOfResponsibility.ATM
             // initialize the chain
             var c100 = new DollarBill(100);
             var c50 = new DollarBill(50);
-            var c20 = new DollarBill(20);
             var c10 = new DollarBill(10);
 
             c100.Next = c50;
-            c50.Next = c20;
-            c20.Next = c10;
+            c50.Next = c10;
 
             _chain = c100;
         }

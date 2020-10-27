@@ -1,6 +1,6 @@
 namespace Lecture08.Models.Facade
 {
-    public class Person
+    public class Subscriber
     {
         public string Name { get; set; }
 

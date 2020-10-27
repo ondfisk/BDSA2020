@@ -4,18 +4,9 @@ namespace Lecture08.Models.Facade
 {
     public class Facade
     {
-        private readonly INotifier _notifier;
-        private readonly IPublisher _publisher;
-        private readonly IArchiver _archiver;
-        private readonly IPeopleRepository _peopleRepository;
-
-        public Facade(INotifier notifier, IPublisher publisher, IArchiver archiver, IPeopleRepository peopleRepository)
-        {
-            _notifier = notifier;
-            _publisher = publisher;
-            _archiver = archiver;
-            _peopleRepository = peopleRepository;
-        }
+        private readonly Notifier _notifier = new Notifier();
+        private readonly Publisher _publisher = new Publisher();
+        private readonly Archiver _archiver = new Archiver();
 
         public void Publish(Article article)
         {
@@ -25,10 +16,8 @@ namespace Lecture08.Models.Facade
             Console.WriteLine("Archiving");
             _archiver.Archive(article);
 
-            var people = _peopleRepository.All();
-
             Console.WriteLine("Notifying");
-            _notifier.Notify(article, people);
+            _notifier.Notify(article);
         }
     }
 }

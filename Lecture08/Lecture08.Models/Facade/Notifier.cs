@@ -3,17 +3,14 @@ using System.Collections.Generic;
 
 namespace Lecture08.Models.Facade
 {
-    public interface INotifier
+    public class Notifier
     {
-        void Notify(Article article, IEnumerable<Person> people);
-    }
+        private readonly SubscriberRepository _peopleRepository = new SubscriberRepository();
 
-    public class Notifier : INotifier
-    {
-        public void Notify(Article article, IEnumerable<Person> people)
+        public void Notify(Article article)
         {
             Console.WriteLine("Notifying:");
-            foreach (var person in people)
+            foreach (var person in _peopleRepository.All())
             {
                 Console.WriteLine($"- {person.Name}");
             }

@@ -31,6 +31,11 @@ namespace Lecture08.Models.Iterator
 
             object IEnumerator.Current => Current;
 
+            public CountToInfinityEnumerator()
+                : this(0)
+            {
+            }
+
             public CountToInfinityEnumerator(BigInteger startNumber)
             {
                 _startNumber = startNumber;
@@ -39,12 +44,12 @@ namespace Lecture08.Models.Iterator
 
             public bool MoveNext()
             {
-                Current += 1;
+                Current++;
 
                 return true;
             }
 
-            public void Reset() => Current = _startNumber -1;
+            public void Reset() => Current = _startNumber - 1;
 
             public void Dispose()
             {

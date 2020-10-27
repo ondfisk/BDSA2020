@@ -2,12 +2,7 @@ using System;
 
 namespace Lecture08.Models.Facade
 {
-    public interface IPublisher
-    {
-        void PublishOnline(Article article);
-    }
-
-    public class Publisher : IPublisher
+    public class Publisher
     {
         public void PublishOnline(Article article)
         {

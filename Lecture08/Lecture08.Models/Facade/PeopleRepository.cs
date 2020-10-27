@@ -3,28 +3,23 @@ using System.Linq;
 
 namespace Lecture08.Models.Facade
 {
-    public interface IPeopleRepository
+    public class SubscriberRepository
     {
-        IEnumerable<Person> All();
-    }
+        static readonly ICollection<Subscriber> _subscribers;
 
-    public class PeopleRepository : IPeopleRepository
-    {
-        static readonly ICollection<Person> _people;
-
-        static PeopleRepository()
+        static SubscriberRepository()
         {
-            _people = new[]
+            _subscribers = new[]
             {
-                new Person { Name = "Hunter S. Thompson", Email = "hunter@thompson.com" },
-                new Person { Name = "Carl Bernstein", Email = "carl@bernstein.com" },
-                new Person { Name = "Bob Woodward", Email = "bob@woodward.com" },
+                new Subscriber { Name = "Hunter S. Thompson", Email = "hunter@thompson.com" },
+                new Subscriber { Name = "Carl Bernstein", Email = "carl@bernstein.com" },
+                new Subscriber { Name = "Bob Woodward", Email = "bob@woodward.com" },
             };
         }
 
-        public IEnumerable<Person> All()
+        public IEnumerable<Subscriber> All()
         {
-            return _people.AsEnumerable();
+            return _subscribers.AsEnumerable();
         }
     }
 }
