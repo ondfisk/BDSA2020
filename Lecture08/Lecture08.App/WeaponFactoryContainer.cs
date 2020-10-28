@@ -13,6 +13,6 @@ namespace Lecture08.App
             IoCContainer.Container.GetServices<IWeapon>().Select(t => t.Name);
 
         public IWeapon Make(string name) =>
-            IoCContainer.Container.GetServices<IWeapon>().Single(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            IoCContainer.Container.GetServices<IWeapon>().SingleOrDefault(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 }

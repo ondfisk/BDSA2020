@@ -3,7 +3,12 @@ using System.Linq;
 
 namespace Lecture08.Models.Facade
 {
-    public class SubscriberRepository
+    public interface ISubscriberRepository
+    {
+        IEnumerable<Subscriber> All();
+    }
+
+    public class SubscriberRepository : ISubscriberRepository
     {
         static readonly ICollection<Subscriber> _subscribers;
 

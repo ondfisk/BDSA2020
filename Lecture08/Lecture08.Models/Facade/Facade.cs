@@ -4,9 +4,16 @@ namespace Lecture08.Models.Facade
 {
     public class Facade
     {
-        private readonly Notifier _notifier = new Notifier();
-        private readonly Publisher _publisher = new Publisher();
-        private readonly Archiver _archiver = new Archiver();
+        private readonly INotifier _notifier;
+        private readonly IPublisher _publisher;
+        private readonly IArchiver _archiver;
+
+        public Facade(IArchiver archiver, IPublisher publisher, INotifier notifier)
+        {
+            _archiver = archiver;
+            _publisher = publisher;
+            _notifier = notifier;
+        }
 
         public void Publish(Article article)
         {
