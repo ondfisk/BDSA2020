@@ -15,5 +15,9 @@ namespace Lecture09.Models
             }
             return results;
         }
+
+        public static Shared.Gender ToGender(this Entities.Gender gender) => Enum.Parse<Shared.Gender>(gender.ToString());
+
+        public static Entities.Gender ToGender(this Shared.Gender gender) => Enum.Parse<Entities.Gender>(gender.ToString());
     }
 }

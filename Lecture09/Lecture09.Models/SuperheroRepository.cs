@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Lecture09.Entities;
+using Lecture09.Shared;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.HttpStatusCode;
 
@@ -26,7 +27,7 @@ namespace Lecture09.Models
                 AlterEgo = superhero.AlterEgo,
                 City = await GetCity(superhero.CityName),
                 Occupation = superhero.Occupation,
-                Gender = superhero.Gender,
+                Gender = superhero.Gender.ToGender(),
                 FirstAppearance = superhero.FirstAppearance,
                 PortraitUrl = superhero.PortraitUrl,
                 BackgroundUrl = superhero.BackgroundUrl,
@@ -51,7 +52,7 @@ namespace Lecture09.Models
                              Occupation = h.Occupation,
                              CityId = h.CityId,
                              CityName = h.City.Name,
-                             Gender = h.Gender,
+                             Gender = h.Gender.ToGender(),
                              FirstAppearance = h.FirstAppearance,
                              PortraitUrl = h.PortraitUrl,
                              BackgroundUrl = h.BackgroundUrl,
@@ -86,7 +87,7 @@ namespace Lecture09.Models
             entity.AlterEgo = superhero.AlterEgo;
             entity.City = await GetCity(superhero.CityName);
             entity.Occupation = superhero.Occupation;
-            entity.Gender = superhero.Gender;
+            entity.Gender = superhero.Gender.ToGender();
             entity.FirstAppearance = superhero.FirstAppearance;
             entity.PortraitUrl = superhero.PortraitUrl;
             entity.BackgroundUrl = superhero.BackgroundUrl;

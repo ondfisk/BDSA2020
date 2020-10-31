@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Lecture09.Entities;
 
-namespace Lecture09.Models
+namespace Lecture09.Shared
 {
     public class SuperheroCreateDTO
     {
