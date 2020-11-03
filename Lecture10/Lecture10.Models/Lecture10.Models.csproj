@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lecture10.Entities\Lecture10.Entities.csproj" />
+    <ProjectReference Include="..\Lecture10.Shared\Lecture10.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
