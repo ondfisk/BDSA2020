@@ -1,17 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture10.Api", "Lecture10.Api\Lecture10.Api.csproj", "{D9FD4BBB-442C-42B3-B476-D341C31FB10E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.Api", "Lecture10.Api\Lecture10.Api.csproj", "{D9FD4BBB-442C-42B3-B476-D341C31FB10E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture10.Entities", "Lecture10.Entities\Lecture10.Entities.csproj", "{660B8E9A-F9B5-49D4-AF0F-33898DB10423}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.Entities", "Lecture10.Entities\Lecture10.Entities.csproj", "{660B8E9A-F9B5-49D4-AF0F-33898DB10423}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture10.Models", "Lecture10.Models\Lecture10.Models.csproj", "{B8CC9161-CA0D-4047-A421-7A747D5AAAFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.Models", "Lecture10.Models\Lecture10.Models.csproj", "{B8CC9161-CA0D-4047-A421-7A747D5AAAFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture10.Models.Tests", "Lecture10.Models.Tests\Lecture10.Models.Tests.csproj", "{77E0B0BE-FB0A-44F1-820A-0183A2711D10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.Models.Tests", "Lecture10.Models.Tests\Lecture10.Models.Tests.csproj", "{77E0B0BE-FB0A-44F1-820A-0183A2711D10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture10.Shared", "Lecture10.Shared\Lecture10.Shared.csproj", "{A608E3A2-7F3F-4D30-BC56-8ECC3662E83D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.Shared", "Lecture10.Shared\Lecture10.Shared.csproj", "{A608E3A2-7F3F-4D30-BC56-8ECC3662E83D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.MVC", "Lecture10.MVC\Lecture10.MVC.csproj", "{A4150ADF-4073-4324-8764-250F3351BDAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture10.Blazor", "Lecture10.Blazor\Lecture10.Blazor.csproj", "{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D9FD4BBB-442C-42B3-B476-D341C31FB10E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -86,5 +87,35 @@ Global
 		{A608E3A2-7F3F-4D30-BC56-8ECC3662E83D}.Release|x64.Build.0 = Release|Any CPU
 		{A608E3A2-7F3F-4D30-BC56-8ECC3662E83D}.Release|x86.ActiveCfg = Release|Any CPU
 		{A608E3A2-7F3F-4D30-BC56-8ECC3662E83D}.Release|x86.Build.0 = Release|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Debug|x64.Build.0 = Debug|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Debug|x86.Build.0 = Debug|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Release|x64.ActiveCfg = Release|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Release|x64.Build.0 = Release|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Release|x86.ActiveCfg = Release|Any CPU
+		{A4150ADF-4073-4324-8764-250F3351BDAF}.Release|x86.Build.0 = Release|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Debug|x64.Build.0 = Debug|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Debug|x86.Build.0 = Debug|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Release|x64.ActiveCfg = Release|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Release|x64.Build.0 = Release|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Release|x86.ActiveCfg = Release|Any CPU
+		{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DC80D05-9452-422C-BA73-357DA2FE6858}
 	EndGlobalSection
 EndGlobal
