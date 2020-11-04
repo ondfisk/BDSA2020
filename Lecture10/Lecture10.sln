@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.Shared", "Lecture
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.MVC", "Lecture10.MVC\Lecture10.MVC.csproj", "{A4150ADF-4073-4324-8764-250F3351BDAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture10.Blazor", "Lecture10.Blazor\Lecture10.Blazor.csproj", "{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture10.Blazor", "Lecture10.Blazor\Lecture10.Blazor.csproj", "{43F0EF03-FF3B-4CFA-AC28-0DE5E926A174}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
