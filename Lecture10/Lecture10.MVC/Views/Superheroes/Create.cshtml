@@ -1,0 +1,68 @@
+﻿@model Lecture10.Shared.SuperheroCreateDTO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SuperheroCreateDTO</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlterEgo" class="control-label"></label>
+                <input asp-for="AlterEgo" class="form-control" />
+                <span asp-validation-for="AlterEgo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Occupation" class="control-label"></label>
+                <input asp-for="Occupation" class="form-control" />
+                <span asp-validation-for="Occupation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CityName" class="control-label"></label>
+                <input asp-for="CityName" class="form-control" />
+                <span asp-validation-for="CityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstAppearance" class="control-label"></label>
+                <input asp-for="FirstAppearance" class="form-control" />
+                <span asp-validation-for="FirstAppearance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PortraitUrl" class="control-label"></label>
+                <input asp-for="PortraitUrl" class="form-control" />
+                <span asp-validation-for="PortraitUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BackgroundUrl" class="control-label"></label>
+                <input asp-for="BackgroundUrl" class="form-control" />
+                <span asp-validation-for="BackgroundUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

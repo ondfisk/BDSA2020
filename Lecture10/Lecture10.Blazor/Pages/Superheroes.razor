@@ -1,0 +1,43 @@
+﻿@page "/superheroes"
+@using Lecture10.Shared
+@inject HttpClient http
+
+<h1>Superheroes</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (superheroes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Alter Ego</th>
+                <th>Name</th>
+                <th>Portrait</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var superhero in superheroes)
+            {
+                <tr>
+                    <td>@superhero.AlterEgo</td>
+                    <td>@superhero.Name</td>
+                    <td><img src="@superhero.PortraitUrl" alt="portrait-@superhero.AlterEgo" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private SuperheroListDTO[] superheroes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        superheroes = await http.GetFromJsonAsync<SuperheroListDTO[]>("superheroes");
+    }
+}
