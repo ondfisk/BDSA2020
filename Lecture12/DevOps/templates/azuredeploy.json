@@ -1,0 +1,134 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "webAppName": {
+      "type": "string"
+    },
+    "appServicePlanName": {
+      "type": "string"
+    },
+    "sqlServerName": {
+      "type": "string"
+    },
+    "sqlDatabaseName": {
+      "type": "string"
+    },
+    "sqlAdministratorLoginPassword": {
+      "type": "securestring"
+    }
+  },
+  "resources": [
+    {
+      "name": "[parameters('sqlServerName')]",
+      "type": "Microsoft.Sql/servers",
+      "apiVersion": "2019-06-01-preview",
+      "location": "[parameters('location')]",
+      "kind": "v12.0",
+      "properties": {
+        "administratorLogin": "sysadm",
+        "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
+        "version": "12.0",
+        "minimalTlsVersion": "1.2",
+        "publicNetworkAccess": "Enabled"
+      },
+      "resources": [
+        {
+          "name": "activeDirectory",
+          "type": "administrators",
+          "apiVersion": "2019-06-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
+          ],
+          "properties": {
+            "administratorType": "ActiveDirectory",
+            "login": "ca2c0c14-e9b1-4066-9c0c-c518b8545254",
+            "sid": "ca2c0c14-e9b1-4066-9c0c-c518b8545254",
+            "tenantId": "[subscription().tenantId]"
+          }
+        },
+        {
+          "name": "[parameters('sqlDatabaseName')]",
+          "type": "databases",
+          "apiVersion": "2020-08-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
+          ],
+          "location": "[parameters('location')]",
+          "properties": {
+            "collation": "SQL_Latin1_General_CP1_CI_AS"
+          },
+          "sku": {
+            "name": "GP_S_Gen5_1"
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2020-06-01",
+      "name": "[parameters('appServicePlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[parameters('location')]",
+      "kind": "Linux",
+      "properties": {
+        "reserved": true
+      },
+      "sku": {
+        "name": "B1",
+        "capacity": 1
+      }
+    },
+    {
+      "apiVersion": "2020-06-01",
+      "name": "[parameters('webAppName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverFarms', parameters('appServicePlanName'))]"
+      ],
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "siteConfig": {
+          "http20Enabled": true,
+          "minTlsVersion": "1.2",
+          "ftpsState": "Disabled"
+        },
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
+        "clientAffinityEnabled": false,
+        "httpsOnly": true
+      },
+      "resources": [
+        {
+          "apiVersion": "2020-06-01",
+          "type": "config",
+          "name": "appsettings",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+          ],
+          "properties": {
+          }
+        },
+        {
+          "name": "connectionstrings",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+          ],
+          "apiVersion": "2020-06-01",
+          "properties": {
+            "Database": {
+              "type": "SQLAzure",
+              "value": "[concat('Server=tcp:', reference(resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=Superheroes;Persist Security Info=False;User ID=sysadm;Password=', parameters('sqlAdministratorLoginPassword'), ';MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
