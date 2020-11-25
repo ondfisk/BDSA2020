@@ -1,0 +1,115 @@
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+  vmImage: 'ubuntu-latest'
+  serviceConnection: 'BDSA2020'
+  location: 'West Europe'
+  resourceGroupName: 'BDSA2020'
+  webAppName: 'bdsa2020'
+  buildConfiguration: 'Release'
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: $(vmImage)
+    steps:
+    - task: UseDotNet@2
+      displayName: Install .NET 5.0
+      inputs:
+        packageType: sdk
+        version: 5.x
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+    - task: DotNetCoreCLI@2
+      displayName: Restore
+      inputs:
+        command: restore
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: build
+    - task: DotNetCoreCLI@2
+      displayName: Test
+      inputs:
+        command: test
+        projects: '**/*Tests/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      displayName: Publish Web Project
+      inputs:
+        command: publish
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        publishWebProjects: true
+        zipAfterPublish: true
+    - task: CopyFiles@2
+      displayName: Copy Files
+      inputs:
+        Contents: |
+          templates/**
+        targetFolder: $(Build.ArtifactStagingDirectory)
+    - task: PublishPipelineArtifact@1
+      displayName: Publish Pipeline Artifact
+      inputs:
+        artifactName: 'drop'
+        targetPath: $(Build.ArtifactStagingDirectory)
+- stage: Validate
+  displayName: 'Validate'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: ValidateAzureResources
+    displayName: 'Validate Azure Resources'
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: Production
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureResourceGroupDeployment@2
+            displayName: 'Validate Azure Resources'
+            inputs:
+              azureSubscription: $(serviceConnection)
+              resourceGroupName: $(resourceGroupName)
+              location: $(location)
+              csmFile: $(Agent.BuildDirectory)/drop/templates/azuredeploy.json
+              csmParametersFile: $(Agent.BuildDirectory)/drop/templates/azuredeploy.parameters.json
+              overrideParameters: '-sqlAdministratorLoginPassword $(sqlAdministratorLoginPassword)'
+              deploymentMode: Validation
+- stage: Deploy
+  displayName: 'Deploy'
+  dependsOn: Validate
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployAzureResources
+    displayName: 'Deploy Azure Resources'
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: Production
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureResourceGroupDeployment@2
+            displayName: 'Deploy Azure Resources'
+            inputs:
+              azureSubscription: $(serviceConnection)
+              resourceGroupName: $(resourceGroupName)
+              location: $(location)
+              csmFile: $(Agent.BuildDirectory)/drop/templates/azuredeploy.json
+              csmParametersFile: $(Agent.BuildDirectory)/drop/templates/azuredeploy.parameters.json
+              overrideParameters: '-sqlAdministratorLoginPassword $(sqlAdministratorLoginPassword)'
+              deploymentMode: Incremental
+          - task: AzureWebApp@1
+            displayName: 'Deploy Web App'
+            inputs:
+              azureSubscription: $(serviceConnection)
+              appType: webAppLinux
+              runtimeStack: 'DOTNETCORE|5.0'
+              appName: $(webAppName)
+              package: '$(Pipeline.Workspace)/**/*.zip'
+              deploymentMethod: 'auto'

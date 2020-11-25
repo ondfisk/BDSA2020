@@ -1,0 +1,30 @@
+GET http://localhost:5000/superheroes
+
+###
+
+GET http://localhost:5000/superheroes/42
+
+###
+
+POST http://localhost:5000/superheroes
+content-type: application/json
+
+{
+    "name": "Clark Kent",
+    "alterEgo": "Superman",
+    "occupation": "Reporter",
+    "gender": "Male",
+    "firstAppearance": 1938,
+    "cityName": "Metropolis",
+    "powers": [
+        "super strength",
+        "flight",
+        "invulnerability",
+        "super speed",
+        "heat vision",
+        "freeze breath",
+        "x-ray vision",
+        "superhuman hearing",
+        "healing factor"
+    ]
+}
