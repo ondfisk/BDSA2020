@@ -28,11 +28,11 @@ namespace Lecture12.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SuperheroContext>(o => o.UseSqlite("Filename=superheroes.db"));
+            services.AddDbContext<SuperheroContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Database")));
             services.AddScoped<ISuperheroContext, SuperheroContext>();
             services.AddScoped<ISuperheroRepository, SuperheroRepository>();
             services.AddControllers();
-            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddSwaggerGen(c =>
             {
@@ -47,9 +47,15 @@ namespace Lecture12.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
+            app.UseHttpsRedirection();
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -58,11 +64,17 @@ namespace Lecture12.Api
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = string.Empty;
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
             });
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<SuperheroContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }

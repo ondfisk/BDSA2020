@@ -52,6 +52,18 @@
           }
         },
         {
+          "type": "firewallRules",
+          "apiVersion": "2015-05-01-preview",
+          "name": "AllowAllWindowsAzureIps",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
+        },
+        {
           "name": "[parameters('sqlDatabaseName')]",
           "type": "databases",
           "apiVersion": "2020-08-01-preview",
@@ -88,6 +100,7 @@
       "type": "Microsoft.Web/sites",
       "location": "[parameters('location')]",
       "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('sqlServerName'), parameters('sqlDatabaseName'))]",
         "[resourceId('Microsoft.Web/serverFarms', parameters('appServicePlanName'))]"
       ],
       "identity": {
