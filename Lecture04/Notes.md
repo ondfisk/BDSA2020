@@ -3,9 +3,11 @@
 ## Run SQL Server container
 
 ```PowerShell
+$database = "myDB"
 $password = New-Guid
-
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+$connectionString = "Server=.;Database=$database;User Id=sa;Password=$password"
+$connectionString
 ```
 
 ## Enable User Secrets
@@ -73,7 +75,7 @@ dotnet ef dbcontext scaffold "..." Microsoft.EntityFrameworkCore.SqlServer --dat
 dotnet new classlib -o Lecture04.Entities
 ```
 
-Change target framework to `netstandard2.1`.
+Change target framework to `net5.0`.
 
 ## Add package to project
 

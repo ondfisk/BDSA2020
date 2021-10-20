@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Lecture06/Lecture06.UI/bin/Debug/netcoreapp3.1/Lecture06.UI.exe",
+            "program": "${workspaceFolder}/Lecture06/Lecture06.UI/bin/Debug/net5.0/Lecture06.UI.exe",
             "args": [],
             "cwd": "${workspaceFolder}/Lecture06/Lecture06.UI",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
